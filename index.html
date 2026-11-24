@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="社区瑜伽馆商业分析演示稿，包含产品、营销、人群、完整成交链路和客户流失判断。">
+<title>社区瑜伽馆商业分析报告 · 连续阅读版</title>
+<style>
+:root{--paper:#f7f5ee;--ink:#273e34;--green:#365446;--sage:#e4e8dc;--wine:#834b52;--rose:#eee0de;--muted:#667367;--line:#d8ddd0;--shell:#e8ebe3;--white:#fffdf8;--slide-scale:1;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;color:var(--ink);background:var(--shell)}
+body{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--wine);outline-offset:4px}
+button:disabled{cursor:default;opacity:.35}
+a{color:inherit;text-underline-offset:4px}
+.topbar{height:70px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid #d1d8cc;gap:20px}
+.brand{display:flex;align-items:baseline;gap:15px;white-space:nowrap}.brand strong{font-size:17px;font-weight:600;letter-spacing:.06em}.brand span{font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.toolbar{display:flex;gap:6px}.toolbar button,.pager button{border:1px solid transparent;background:transparent;color:var(--ink);padding:9px 14px;font-size:13px;min-height:40px}.toolbar button:hover,.pager button:hover:not(:disabled){background:#d9e0d3}.toolbar .primary{border-color:var(--ink)}
+.viewport{flex:1;position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;padding:20px}
+.deck{position:relative;width:1280px;height:720px;flex-shrink:0;transform:scale(var(--slide-scale));transform-origin:center;box-shadow:0 12px 52px #243e2d18}
+.slide{position:absolute;inset:0;width:1280px;height:720px;background:var(--paper);padding:45px 64px 56px;display:flex;flex-direction:column;overflow:hidden}
+.slide[hidden]{display:none}
+.slide-top{display:flex;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:.08em;color:var(--muted);flex-shrink:0}
+.section-id{display:flex;align-items:center;gap:11px}.section-id b{font-weight:500;color:var(--wine);font-variant-numeric:tabular-nums}
+.assumption{font-size:12px;letter-spacing:.02em}
+h1,h2,h3,p{margin:0}
+h1,h2{font-family:"Songti SC","STSong","Noto Serif CJK SC",serif;font-weight:600;letter-spacing:.01em}
+h2{font-size:42px;line-height:1.28;margin-top:19px;flex-shrink:0}
+.intro{font-size:17px;line-height:1.7;color:var(--muted);margin-top:10px;max-width:1070px;flex-shrink:0}
+.content{flex:1;min-height:0;margin-top:28px;position:relative}
+.slide-footer{position:absolute;bottom:23px;left:64px;right:64px;display:flex;justify-content:space-between;gap:18px;font-size:11px;line-height:1.5;color:var(--muted)}
+.slide-footer .page{font-variant-numeric:tabular-nums;white-space:nowrap}
+.kicker{font-size:12px;letter-spacing:.14em;color:var(--muted)}
+.lead{font-size:24px;line-height:1.6}.body{font-size:18px;line-height:1.75}.small{font-size:14px;line-height:1.65}.muted{color:var(--muted)}.wine{color:var(--wine)}.tabular{font-variant-numeric:tabular-nums}.number{font-family:Arial,"PingFang SC",sans-serif;font-weight:400;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.label{font-size:13px;color:var(--muted);letter-spacing:.04em}.divider{height:1px;background:var(--line);margin:22px 0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:44px;height:100%}.two-col.wide-left{grid-template-columns:1.2fr 1fr}.two-col.wide-right{grid-template-columns:.9fr 1.2fr}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}.plain-col{border-top:2px solid var(--green);padding-top:19px}.plain-col h3{font-size:23px;font-weight:500;margin:9px 0 10px}.plain-col p{font-size:17px;line-height:1.7}
+.statement{border-left:3px solid var(--wine);padding-left:22px;font-size:23px;line-height:1.55}
+table{width:100%;border-collapse:collapse;font-size:17px;line-height:1.5;text-align:left}th{font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:500;padding:0 15px 14px 0;border-bottom:1px solid var(--ink)}td{padding:18px 15px 18px 0;border-bottom:1px solid var(--line);vertical-align:top}td:last-child,th:last-child{padding-right:0}td strong{font-weight:600}.table-note{font-size:13px;line-height:1.65;margin-top:15px;color:var(--muted)}
+.bottom-note{position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line);padding-top:15px;font-size:15px;line-height:1.6;color:var(--muted)}
+.cover{background:var(--green);color:var(--paper);padding:49px 64px}.cover .slide-top,.cover .slide-footer{color:#d5dfcf}.cover-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:70px;align-items:center;flex:1;margin-bottom:20px}.cover h1{font-size:79px;line-height:1.2;letter-spacing:.025em}.cover h1 span{display:block}.cover-sub{font-size:21px;line-height:1.8;margin-top:28px;color:#dce4d5}.cover-rule{height:1px;width:75px;background:#cfdbca;margin:30px 0}.cover-copy{font-size:15px;line-height:1.8;max-width:590px;color:#d5dfcf}.cover-facts{border-left:1px solid #77907c;padding-left:40px}.cover-fact+.cover-fact{margin-top:28px}.cover-fact .number{font-size:59px;line-height:1.1}.cover-fact .unit{font-size:18px;margin-left:7px}.cover-fact p{font-size:14px;color:#d5dfcf;margin-top:8px}.cover-mark{font-size:12px;border:1px solid #9aad98;padding:5px 10px;letter-spacing:.08em}
+.model-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:7px 0 31px}.model-stage{position:relative;padding:0 28px 20px 0;border-bottom:1px solid var(--line)}.model-stage:not(:first-child){padding-left:27px}.model-stage:not(:last-child){border-right:1px solid var(--line)}.model-stage .number{font-size:44px;color:var(--wine);line-height:1.3}.model-stage h3{font-size:20px;margin:8px 0 7px;font-weight:500}.model-stage p{font-size:15px;line-height:1.6;color:var(--muted)}
+.model-readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}.model-readouts b{font-size:18px;font-weight:500}.model-readouts p{font-size:16px;line-height:1.6;margin-top:8px;color:var(--muted)}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;height:310px}.product{padding:24px 25px 16px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);position:relative}.product+.product{border-left:1px solid var(--line)}.product.core{background:var(--sage)}.product .role{font-size:12px;color:var(--wine);letter-spacing:.08em}.product h3{font-size:23px;font-weight:500;margin:14px 0 15px}.price{font-size:46px;line-height:1.2;white-space:nowrap}.price .currency{font-size:22px;vertical-align:top;display:inline-block;margin-top:6px;margin-right:4px}.product .spec{font-size:14px;line-height:1.7;color:var(--muted);margin:13px 0}.product .delivery{font-size:16px;line-height:1.6;margin-top:14px}.product-caption{margin-top:24px;font-size:17px;line-height:1.75}
+.audience-table td{padding-top:21px;padding-bottom:21px}.audience-name{font-size:21px}.audience-table .time{font-size:14px;color:var(--wine);display:block;margin-top:6px}.priority-note{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center;margin-top:22px}.priority-note strong{font-weight:500;color:var(--wine);font-size:17px}.priority-note p{font-size:16px;line-height:1.7}
+.channel-table td{padding-top:17px;padding-bottom:17px}.channel-table td:first-child{font-size:20px;font-weight:500;white-space:nowrap}.channel-table td:last-child{font-size:16px}.formula-strip{margin-top:23px;display:flex;align-items:center;gap:24px;border-left:3px solid var(--wine);padding-left:20px}.formula-strip strong{font-size:17px;font-weight:500}.formula-strip p{font-size:16px;color:var(--muted)}
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:23px 27px;margin-top:0}.journey-step{position:relative;padding-top:15px;border-top:1px solid #a4b39f;min-height:128px}.step-number{font-size:13px;color:var(--wine);letter-spacing:.08em}.journey-step h3{font-size:22px;font-weight:500;margin:8px 0 7px}.journey-step p{font-size:15px;line-height:1.6;color:var(--muted)}.metrics-line{border-top:1px solid var(--line);padding-top:17px;margin-top:23px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.metrics-line b{font-size:16px;font-weight:500}.metrics-line p{font-size:13px;line-height:1.6;color:var(--muted);margin-top:6px}
+.capacity-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:23px;margin-bottom:30px}.capacity-stat{padding-bottom:19px;border-bottom:1px solid var(--line)}.capacity-stat .number{font-size:49px;line-height:1.2;margin:10px 0 7px}.capacity-stat .unit{font-size:18px;letter-spacing:0;margin-left:4px}.capacity-stat p{font-size:14px;color:var(--muted);line-height:1.6}.meter-label{display:flex;justify-content:space-between;font-size:16px;margin-bottom:11px}.capacity-meter{height:30px;background:var(--sage);position:relative}.capacity-meter-fill{height:100%;width:61.538%;background:var(--green);transition:width .15s}.capacity-rule{font-size:14px;color:var(--muted);line-height:1.7;margin-top:13px}.ops-list{border-left:1px solid var(--line);padding-left:32px}.ops-item+.ops-item{margin-top:24px}.ops-item h3{font-size:20px;font-weight:500;margin-bottom:8px}.ops-item p{font-size:16px;line-height:1.65;color:var(--muted)}
+.finance-layout{display:grid;grid-template-columns:1.08fr 1fr;gap:54px;height:100%}.finance-main{background:var(--sage);padding:26px 30px}.finance-main .big-balance{font-size:63px;line-height:1.2;margin:12px 0 4px}.finance-main .balance-label{font-size:15px}.finance-main .result-footnote{font-size:13px;line-height:1.6;color:var(--muted);margin-top:13px}.finance-sub{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:23px}.finance-sub .number{font-size:29px;margin-top:6px}.finance-costs{font-size:16px}.finance-costs td{padding:10px 0}.finance-costs td:last-child{text-align:right;font-variant-numeric:tabular-nums}.finance-costs tr.total td{border-bottom:0;font-weight:600;padding-top:14px}.range-head{display:flex;justify-content:space-between;font-size:15px;margin-top:22px;margin-bottom:9px}.range-head output{font-weight:600;font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--green);cursor:ew-resize}.range-ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:5px}.break-even{font-size:17px;line-height:1.75;border-top:1px solid var(--line);padding-top:16px;margin-top:14px}.break-even b{font-size:29px;font-weight:400;margin:0 6px;color:var(--wine)}
+.case-tag{display:inline-block;background:var(--rose);color:var(--wine);font-size:13px;padding:7px 11px;margin-bottom:17px}.evidence-list{margin:0;padding:0;list-style:none}.evidence-list li{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}.evidence-id{font-size:12px;color:var(--wine);padding-top:3px}.evidence-list p{font-size:17px;line-height:1.55}.evidence-list small{display:block;font-size:12px;color:var(--muted);margin-top:4px}.case-right{padding-left:7px}.time-compare{margin-top:14px}.time-block{padding:17px 0;border-top:1px solid var(--line)}.time-block .number{font-size:44px;margin-top:7px}.time-block .small{font-size:14px}.time-gap{display:flex;gap:14px;align-items:center;color:var(--wine);margin:6px 0 16px}.time-gap strong{font-weight:400;font-size:34px}.case-judgment{font-size:21px;line-height:1.65;margin-top:19px}.case-limit{font-size:14px;line-height:1.7;color:var(--muted);margin-top:14px}
+.experiment-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}.experiment-stages h3{font-size:22px;font-weight:500;margin:14px 0 14px}.experiment-stages .number{font-size:45px;color:var(--wine)}.experiment-stages p{font-size:17px;line-height:1.75}.decision-rules{margin-top:31px;padding-top:20px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:42px}.decision-rules strong{font-size:17px;font-weight:500;display:block;margin-bottom:7px}.decision-rules p{font-size:15px;line-height:1.7;color:var(--muted)}
+.action-row{display:grid;grid-template-columns:120px 220px 1fr 230px;gap:28px;padding:24px 0;border-top:1px solid var(--line);align-items:start}.action-row:first-child{border-top:1px solid var(--ink)}.action-row .week{font-size:17px;color:var(--wine)}.action-row h3{font-size:22px;line-height:1.5;font-weight:500}.action-row p{font-size:16px;line-height:1.7}.action-row .owner{font-size:13px;color:var(--muted);display:block;margin-top:7px}.action-note{font-size:15px;line-height:1.65;margin-top:20px;color:var(--muted)}
+.close-main{display:grid;grid-template-columns:.9fr 1.2fr;gap:65px}.close-quote{font-family:"Songti SC","STSong",serif;font-size:38px;line-height:1.55;margin-top:7px}.close-quote span{color:var(--wine)}.source-list{margin-top:28px;font-size:13px;line-height:1.75;color:var(--muted)}.source-list p+p{margin-top:10px}.material-list{list-style:none;padding:0;margin:0}.material-list li{padding:16px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:35px 1fr;gap:12px}.material-list li:first-child{padding-top:0}.material-list b{font-size:18px;font-weight:500;display:block}.material-list p{font-size:15px;line-height:1.65;color:var(--muted);margin-top:7px}.material-list .index{font-size:14px;color:var(--wine);padding-top:5px}
+.bottom-bar{height:65px;flex-shrink:0;display:flex;align-items:center;gap:25px;padding:0 32px;border-top:1px solid #d1d8cc}.counter{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}.counter strong{font-size:20px;font-weight:500}.progress-track{height:2px;flex:1;background:#cbd3c5;overflow:hidden}.progress-fill{height:100%;background:var(--green);width:8.333%;transition:width .2s}.key-help{font-size:11px;color:var(--muted);white-space:nowrap}.pager{display:flex;gap:5px}.pager button{padding:8px 12px;min-width:75px}.page-title{font-size:12px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+dialog{border:0;max-width:860px;width:calc(100% - 40px);padding:32px 38px;color:var(--ink);background:var(--paper);max-height:85vh}dialog::backdrop{background:#173025aa}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.dialog-head h2{font-family:inherit;font-size:24px;font-weight:500;margin:0}.dialog-head button{border:0;background:transparent;color:var(--ink);padding:10px;font-size:14px}.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}.toc-item{border:0;border-top:1px solid var(--line);padding:19px 8px;text-align:left;background:transparent;display:flex;gap:18px;align-items:center;color:var(--ink);min-height:61px}.toc-item:hover,.toc-item[aria-current=true]{background:var(--sage)}.toc-item span{color:var(--wine);font-size:13px}.toc-item strong{font-size:16px;font-weight:500}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:760px){
+body{height:100dvh}.topbar{height:61px;padding:0 13px;gap:5px}.brand strong{font-size:15px}.brand span{display:none}.toolbar{gap:0}.toolbar button{font-size:12px;padding:8px 9px;min-height:44px}.toolbar #printBtn{display:none}.viewport{display:block;overflow-y:auto;padding:14px 10px;overscroll-behavior:contain}.deck{width:100%;height:auto;transform:none!important;box-shadow:0 5px 23px #243e2d12}.slide{position:relative;width:100%;height:auto;min-height:600px;padding:25px 23px 32px;overflow:visible}.slide-top{font-size:10px;line-height:1.5;align-items:start;gap:13px}.section-id{gap:7px;letter-spacing:0}.assumption{font-size:10px;letter-spacing:0;white-space:nowrap}h2{font-size:30px;margin-top:22px;line-height:1.35}.intro{font-size:14px;line-height:1.7;margin-top:11px}.content{margin-top:27px;flex:unset}.slide-footer{position:static;margin-top:31px;font-size:10px;align-items:end;gap:10px}.slide-footer span:first-child{max-width:85%}.body{font-size:16px}.lead{font-size:20px}.two-col,.two-col.wide-left,.two-col.wide-right,.finance-layout,.close-main{grid-template-columns:1fr;gap:27px;height:auto}.three-col{grid-template-columns:1fr;gap:23px}.plain-col{padding-top:13px}.plain-col h3{font-size:21px}.plain-col p{font-size:15px}.bottom-note{position:static;margin-top:26px;font-size:14px}.cover{padding:27px 23px 31px;min-height:680px}.cover-grid{grid-template-columns:1fr;gap:34px;align-items:start;margin-top:38px;margin-bottom:0}.cover h1{font-size:52px}.cover-sub{font-size:17px;line-height:1.8;margin-top:20px}.cover-rule{margin:21px 0}.cover-copy{font-size:13px}.cover-facts{border-left:0;border-top:1px solid #77907c;padding:25px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cover-fact+.cover-fact{margin-top:0}.cover-fact .number{font-size:35px}.cover-fact .unit{font-size:13px;margin-left:3px}.cover-fact p{font-size:11px}.cover-mark{font-size:10px}.model-row{grid-template-columns:1fr 1fr;gap:22px 0;margin:0 0 30px}.model-stage,.model-stage:not(:first-child){padding:0 14px 15px}.model-stage:nth-child(odd){padding-left:0}.model-stage:nth-child(2){border-right:0}.model-stage .number{font-size:35px}.model-stage h3{font-size:19px}.model-stage p{font-size:13px}.model-readouts{grid-template-columns:1fr;gap:20px}.model-readouts p{font-size:15px}.product-grid{height:auto;grid-template-columns:1fr 1fr;gap:0}.product{padding:19px 13px 20px}.product:nth-child(odd){border-left:0}.product h3{font-size:20px}.price{font-size:35px}.price .currency{font-size:17px}.product .spec{font-size:12px}.product .delivery{font-size:14px}.product-caption{font-size:15px;margin-top:21px}table{font-size:14px;line-height:1.6}th{font-size:11px;padding-right:10px}td{padding:15px 10px 15px 0}.audience-table .secondary{display:none}.audience-name{font-size:17px}.audience-table .time{font-size:12px}.audience-table td{padding:17px 10px 17px 0}.priority-note{grid-template-columns:1fr;gap:10px}.priority-note p{font-size:14px}.channel-table .secondary{display:none}.channel-table td:first-child{font-size:16px;white-space:normal;min-width:68px}.channel-table td:last-child{font-size:13px}.formula-strip{display:block;padding-left:15px;margin-top:21px}.formula-strip strong{font-size:15px}.formula-strip p{font-size:13px;margin-top:8px}.journey{grid-template-columns:1fr 1fr;gap:20px}.journey-step{min-height:130px;padding-top:11px}.journey-step h3{font-size:19px}.journey-step p{font-size:13px}.metrics-line{grid-template-columns:1fr;gap:18px}.capacity-stats{gap:15px}.capacity-stat .number{font-size:31px}.capacity-stat .unit{font-size:13px}.capacity-stat .label{font-size:12px}.capacity-stat p{font-size:12px}.meter-label{font-size:13px}.capacity-rule{font-size:13px}.ops-list{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:22px}.ops-item+.ops-item{margin-top:19px}.ops-item h3{font-size:18px}.ops-item p{font-size:14px}.finance-main{padding:22px}.finance-main .big-balance{font-size:51px}.finance-main .result-footnote{font-size:12px}.finance-sub{gap:17px}.finance-sub .number{font-size:25px}.finance-costs{font-size:15px}.break-even{font-size:15px}.case-tag{font-size:12px}.evidence-list p{font-size:15px}.evidence-list small{font-size:11px}.case-right{padding-left:0}.time-compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}.time-block .number{font-size:35px}.time-gap{grid-column:1/-1;margin-bottom:0}.case-judgment{font-size:20px;margin-top:15px}.case-limit{font-size:13px}.experiment-stages{grid-template-columns:1fr;gap:23px}.experiment-stages .number{font-size:34px}.experiment-stages h3{font-size:20px;margin:8px 0}.experiment-stages p{font-size:15px}.decision-rules{grid-template-columns:1fr;gap:23px;margin-top:23px}.decision-rules p{font-size:14px}.action-row{grid-template-columns:1fr;gap:12px;padding:22px 0}.action-row h3{font-size:21px}.action-row p{font-size:14px}.action-row .week{font-size:14px}.action-row .owner{font-size:12px}.action-note{font-size:13px}.close-quote{font-size:31px;line-height:1.6}.source-list{font-size:12px;margin-top:23px}.material-list b{font-size:17px}.material-list p{font-size:14px}.bottom-bar{height:65px;padding:0 12px;gap:13px}.key-help,.page-title{display:none}.counter{font-size:12px}.counter strong{font-size:18px}.pager{gap:0}.pager button{min-width:60px;padding:8px;font-size:12px;min-height:44px}.toc-grid{grid-template-columns:1fr}dialog{padding:25px}.toc-item{padding:16px 6px}.toc-item strong{font-size:15px}}
+/* 连续阅读：页面采用正常文档流，滚轮和触屏按浏览器原生方式滚动。 */
+html{scroll-padding-top:90px}
+body{height:auto;min-height:100vh;display:block;overflow:auto}
+.topbar{position:sticky;top:0;z-index:20;background:var(--shell)}
+.viewport{display:block;overflow:visible;padding:30px 24px 95px;min-height:0}
+.deck{height:auto;transform:none;transform-origin:top center;zoom:var(--read-scale,1);margin:0 auto;box-shadow:none}
+.slide,.slide[hidden]{position:relative;inset:auto;display:flex;margin:0 0 28px;box-shadow:0 5px 25px #243e2d0d}
+.slide:last-child{margin-bottom:0}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--shell)}
+@media (max-width:760px){body{height:auto;min-height:100dvh;overflow:auto}.viewport{display:block;overflow:visible;padding:14px 10px 85px}.deck{width:100%;zoom:1}.slide,.slide[hidden]{height:auto;min-height:600px;margin-bottom:16px}.cover{min-height:680px}.model-stage:last-child .number{font-size:24px!important;line-height:1.9;white-space:nowrap}}
+@page{size:1280px 720px;margin:0}
+@media print{
+html,body{height:auto!important;display:block!important;overflow:visible!important;background:var(--paper);-webkit-print-color-adjust:exact;print-color-adjust:exact}.topbar,.bottom-bar,dialog{display:none!important}.viewport{padding:0!important;display:block!important;height:auto!important;overflow:visible!important}.deck{width:1280px!important;height:auto!important;transform:none!important;box-shadow:none!important}.slide,.slide[hidden]{position:relative!important;inset:auto!important;display:flex!important;width:1280px!important;height:720px!important;min-height:720px!important;break-after:page;page-break-after:always;overflow:hidden!important}.slide:last-child{break-after:auto;page-break-after:auto}input[type=range],.range-ticks{display:none}.range-head{margin-top:12px}a{text-decoration:none}}
+@media print{.deck{zoom:1!important}.slide,.slide[hidden]{margin:0!important;box-shadow:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="brand"><strong>社区瑜伽馆</strong><span>连续阅读</span></div>
+ <nav class="toolbar" aria-label="演示操作">
+  <button id="overviewBtn" type="button" aria-haspopup="dialog">目录</button>
+  <button id="printBtn" type="button">打印 / PDF</button>
+  <button id="fullscreenBtn" class="primary" type="button">全屏阅读</button>
+ </nav>
+</header>
+<main class="viewport" id="viewport" aria-label="可连续向下滚动的商业分析报告">
+<div class="deck" id="deck">
+
+<section class="slide cover" id="slide-01" data-title="社区瑜伽馆商业分析" aria-label="第1页 社区瑜伽馆商业分析">
+ <div class="slide-top"><span>COMMUNITY YOGA STUDIO</span><span class="cover-mark">案例示范</span></div>
+ <div class="cover-grid">
+  <div>
+   <h1><span>社区瑜伽馆</span><span>商业分析报告</span></h1>
+   <p class="cover-sub">产品、营销、人群与完整成交链路<br>一个客户流失判断及其依据</p>
+   <div class="cover-rule"></div>
+   <p class="cover-copy">研究对象为前文设定的社区小班瑜伽馆。<br>经营参数、产品价格与客户案例均为示范假设。</p>
+  </div>
+  <div class="cover-facts" aria-label="示范门店参数">
+   <div class="cover-fact"><div><span class="number">150</span><span class="unit">㎡</span></div><p>社区门店面积</p></div>
+   <div class="cover-fact"><div><span class="number">10</span><span class="unit">人</span></div><p>每班人数上限</p></div>
+   <div class="cover-fact"><div><span class="number">15</span><span class="unit">分钟</span></div><p>初始目标客群可达范围</p></div>
+  </div>
+ </div>
+ <div class="slide-footer"><span>示范分析，非真实门店实绩</span><span class="page">2026.11.24　01 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-02" data-title="商业模式与核心判断" aria-label="第2页 商业模式与核心判断">
+ <div class="slide-top"><span class="section-id"><b>01</b> 商业模式</span><span class="assumption">示范假设</span></div>
+ <h2>社区小班的收入，依赖体验、到课与续费</h2>
+ <p class="intro">向附近有规律运动需求的顾客提供小班课程，通过体验建立信任，用持续交付承接再次购买。</p>
+ <div class="content">
+  <div class="model-row">
+   <div class="model-stage"><div class="number">99<span style="font-size:18px;letter-spacing:0">元</span></div><h3>尝试体验</h3><p>降低首次购买门槛<br>了解教学方式和强度</p></div>
+   <div class="model-stage"><div class="number">699<span style="font-size:18px;letter-spacing:0">元</span></div><h3>购买月卡</h3><p>安排每周约两次练习<br>提供稳定的可预约课程</p></div>
+   <div class="model-stage"><div class="number">8<span style="font-size:18px;letter-spacing:0">次 / 月</span></div><h3>持续到课</h3><p>教学关注与阶段反馈<br>形成可持续的运动安排</p></div>
+   <div class="model-stage"><div class="number" style="font-size:39px;letter-spacing:0">再次购买</div><h3>续费与推荐</h3><p>检查课程匹配与服务体验<br>让老客带来持续收入</p></div>
+  </div>
+  <div class="model-readouts">
+   <div><b>产品需要方便开始</b><p>体验课与正价课在师资、人数和预约条件上保持一致。</p></div>
+   <div><b>客群需要时间匹配</b><p>初始优先验证附近、能够固定到课的新手，实际需求仍需访谈。</p></div>
+   <div><b>经营需要持续交付</b><p>预收课包款对应未来教学义务，收入、剩余课时与现金分别记录。</p></div>
+  </div>
+  <div class="bottom-note">分析主线：体验是否合适，正式课是否约得上，会员是否愿意持续来。当前结论用于提出验证方向。</div>
+ </div>
+ <div class="slide-footer"><span>资料 A1：前文社区瑜伽馆案例设定</span><span class="page">02 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-03" data-title="产品与收费结构" aria-label="第3页 产品与收费结构">
+ <div class="slide-top"><span class="section-id"><b>02</b> 产品</span><span class="assumption">价格为示范设定</span></div>
+ <h2>四类产品分别承担尝试、练习与续购</h2>
+ <p class="intro">产品价值同时包含教学质量、适合的课程强度、预约便利与清楚的使用规则。</p>
+ <div class="content">
+  <div class="product-grid">
+   <article class="product"><div class="role">首次尝试</div><h3>新客体验包</h3><div class="price number"><span class="currency">¥</span>99</div><p class="spec">2次课程<br>7天内使用</p><p class="delivery">了解老师与课程<br>明确后续可上课时间</p></article>
+   <article class="product core"><div class="role">核心收入</div><h3>团课月卡</h3><div class="price number"><span class="currency">¥</span>699</div><p class="spec">8次课程<br>30天内使用</p><p class="delivery">承接每周约两次练习<br>稳定的排课与教学反馈</p></article>
+   <article class="product"><div class="role">持续练习</div><h3>季度课包</h3><div class="price number"><span class="currency">¥</span>1,980</div><p class="spec">24次课程<br>90天内使用</p><p class="delivery">服务已有练习习惯的人<br>观察使用进度与续购意愿</p></article>
+   <article class="product"><div class="role">个性化指导</div><h3>一对一课程</h3><div class="price number"><span class="currency">¥</span>299</div><p class="spec">1次课程<br>单独预约</p><p class="delivery">更多指导时间<br>按目标安排教学内容</p></article>
+  </div>
+  <p class="product-caption"><span class="wine">产品判断：</span>先验证月卡能否支持规律到课，再向适合的会员推荐更长周期课包。私教需另算师资、时段与教室占用。</p>
+ </div>
+ <div class="slide-footer"><span>资料 A1：产品价格与有效期为示范假设，非市场均价</span><span class="page">03 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-04" data-title="目标人群与购买顾虑" aria-label="第4页 目标人群与购买顾虑">
+ <div class="slide-top"><span class="section-id"><b>03</b> 人群</span><span class="assumption">客群假设，待订单与访谈验证</span></div>
+ <h2>可到课的时间，决定人群与课程是否匹配</h2>
+ <p class="intro">初始面向附近15分钟可达的人群，以需求场景、可上课时段和练习经验识别客户。</p>
+ <div class="content">
+  <table class="audience-table">
+   <thead><tr><th style="width:22%">客群</th><th style="width:28%">需求与场景</th><th style="width:26%">购买顾虑</th><th class="secondary">应匹配的交付</th></tr></thead>
+   <tbody>
+    <tr><td><strong class="audience-name">周边上班族</strong><span class="time">下班后、周末</span></td><td>安排规律运动<br>获得清楚的新手指导</td><td>赶不上开课<br>担心加班后无法坚持</td><td class="secondary">适合新手的晚间班<br>清楚的预约与取消规则</td></tr>
+    <tr><td><strong class="audience-name">时间灵活的居民</strong><span class="time">工作日白天</span></td><td>就近练习<br>获得稳定的教学关注</td><td>课程强度不合适<br>老师照顾不足</td><td class="secondary">白天基础课<br>分级教学与适当反馈</td></tr>
+    <tr><td><strong class="audience-name">已有练习习惯的人</strong><span class="time">固定时段、专项课</span></td><td>持续练习与进阶<br>稳定的师资和课程内容</td><td>课程重复<br>喜欢的课约不上</td><td class="secondary">专项课程与进阶安排<br>可预期的老师与课表</td></tr>
+   </tbody>
+  </table>
+  <div class="priority-note"><strong>首轮验证优先级</strong><p>先接触附近、时间能匹配、愿意规律练习的新手。通过真实到课和再次购买，判断哪些客群值得持续投入。</p></div>
+ </div>
+ <div class="slide-footer"><span>资料 A1：人群划分为分析假设，未使用真实客户画像或占比</span><span class="page">04 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-05" data-title="营销渠道与获客效率" aria-label="第5页 营销渠道与获客效率">
+ <div class="slide-top"><span class="section-id"><b>04</b> 营销</span><span class="assumption">渠道方案待实际费用与成交验证</span></div>
+ <h2>营销内容回答顾虑，渠道效果追踪到付费</h2>
+ <p class="intro">展示真实教学、课表和到店信息，让附近有需求的人完成一次合适的体验。</p>
+ <div class="content">
+  <table class="channel-table">
+   <thead><tr><th style="width:20%">渠道</th><th style="width:34%">提供的信息</th><th class="secondary" style="width:22%">下一步动作</th><th>主要评价指标</th></tr></thead>
+   <tbody>
+    <tr><td>小红书 / 抖音</td><td>新手课堂、老师指导、到店路线</td><td class="secondary">咨询课程与可来时间</td><td>本地有效咨询<br>后续首次正价购买</td></tr>
+    <tr><td>美团 / 大众点评</td><td>透明价格、班额、当周课表与评价</td><td class="secondary">购买体验并预约</td><td>体验购买、实际核销<br>体验后转正</td></tr>
+    <tr><td>社区合作</td><td>附近居民适用的课程与活动</td><td class="secondary">了解门店并到课</td><td>实际到店<br>正价购买贡献</td></tr>
+    <tr><td>会员转介绍</td><td>朋友同行体验、清楚的推荐规则</td><td class="secondary">完成首次体验</td><td>新增付费客户<br>后续到课和续购</td></tr>
+   </tbody>
+  </table>
+  <div class="formula-strip"><strong>投放获客成本</strong><p>同一渠道推广费用 ÷ 该渠道带来的新增正价付费客户数<br><span class="small">口径不含人员等完整获客成本，分别记录体验收入与后续履约成本。</span></p></div>
+ </div>
+ <div class="slide-footer"><span>公开背景 P1：美团2025年消费趋势材料涉及体验课与短周期供给，不能替代门店数据</span><span class="page">05 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-06" data-title="完整成交与续费链路" aria-label="第6页 完整成交与续费链路">
+ <div class="slide-top"><span class="section-id"><b>05</b> 完整链路</span><span class="assumption">环节待实际记录核实，无虚构转化率</span></div>
+ <h2>首次接触之后，每一步都需要交付</h2>
+ <p class="intro">从看到门店到再次购买，持续检查客户为什么前进，以及可能在哪一步退出。</p>
+ <div class="content">
+  <div class="journey" aria-label="按01至08顺序的客户购买与交付链路">
+   <div class="journey-step"><div class="step-number">01 接触</div><h3>看到内容</h3><p>理解适合谁、在哪里<br>风险：信息与需求不符</p></div>
+   <div class="journey-step"><div class="step-number">02 咨询</div><h3>确认匹配</h3><p>核对时间、经验与价格<br>风险：课表不适合</p></div>
+   <div class="journey-step"><div class="step-number">03 首购</div><h3>购买体验</h3><p>说明班额、使用规则<br>风险：理解与实际有差异</p></div>
+   <div class="journey-step"><div class="step-number">04 预约</div><h3>预约到店</h3><p>提供可约时段与路线<br>风险：约不上、临时取消</p></div>
+   <div class="journey-step"><div class="step-number">05 体验</div><h3>上课反馈</h3><p>关注新手、了解感受<br>风险：强度或服务不匹配</p></div>
+   <div class="journey-step"><div class="step-number">06 转正</div><h3>购买课包</h3><p>确认未来几周能上什么课<br>风险：持续到课条件不足</p></div>
+   <div class="journey-step"><div class="step-number">07 履约</div><h3>规律到课</h3><p>跟进预约、到课与反馈<br>风险：频率下降、体验落差</p></div>
+   <div class="journey-step"><div class="step-number">08 再购</div><h3>续费推荐</h3><p>确认继续练习意愿<br>风险：仍有未解决的问题</p></div>
+  </div>
+  <div class="metrics-line">
+   <div><b>体验核销率</b><p>同批完成体验人数 ÷ 购买体验人数<br>统一产品有效期与统计窗口</p></div>
+   <div><b>30日体验转正率</b><p>体验后30日内首次正价购买人数<br>÷ 已满30日观察窗的首次体验新客数</p></div>
+   <div><b>到期续费率</b><p>到期后7日内续费人数 ÷ 到期客户数<br>只统计已完整经过7日窗口的人群</p></div>
+  </div>
+ </div>
+ <div class="slide-footer"><span>指标统一人数、客户群与观察窗口。没有可靠分母时不计算比例</span><span class="page">06 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-07" data-title="课程交付与高峰产能" aria-label="第7页 课程交付与高峰产能">
+ <div class="slide-top"><span class="section-id"><b>06</b> 交付与产能</span><span class="assumption">以下数量均为模型计算</span></div>
+ <h2>平均还有空位，也需要检查热门时段</h2>
+ <p class="intro">每月营业26天，每天6节团课，每班最多10人。按每位月卡会员月内完成8次测算。</p>
+ <div class="content two-col wide-left">
+  <div>
+   <div class="capacity-stats">
+    <div class="capacity-stat"><div class="label">每月排课</div><div class="number">156<span class="unit">节</span></div><p>26天 × 6节</p></div>
+    <div class="capacity-stat"><div class="label">可用上课名额</div><div class="number">1,560<span class="unit">人次</span></div><p>156节 × 10人</p></div>
+    <div class="capacity-stat"><div class="label">模型到课需求</div><div class="number" id="capacityDemand">960<span class="unit">人次</span></div><p><span id="capacityMemberCount">120</span>人 × 8次</p></div>
+   </div>
+   <div class="meter-label"><span>平均名额使用率</span><strong id="capacityPercent">61.5%</strong></div>
+   <div class="capacity-meter" role="progressbar" aria-label="平均名额使用率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="61.5" id="capacityMeter"><div class="capacity-meter-fill" id="capacityFill"></div></div>
+   <p class="capacity-rule">总量仅反映整体供需。另按时段、老师和课程类型检查预约失败，给体验客与临时变化预留空间。</p>
+   <div class="divider"></div>
+   <p class="statement" style="font-size:22px">晚间课约不上，可能同时影响<br>新客转正和老客续费。</p>
+  </div>
+  <div class="ops-list">
+   <div class="ops-item"><h3>预约前：确认未来可上课</h3><p>咨询时先核对时间，购买课包前查看未来几周的适配课程。</p></div>
+   <div class="ops-item"><h3>课堂中：体验与正价一致</h3><p>保持班额、教学关注与强度说明的一致性，避免首次体验后的落差。</p></div>
+   <div class="ops-item"><h3>开卡后：关注到课变化</h3><p>观察预约困难、频率下降与反馈，区分需求变化、排课问题和其他原因。</p></div>
+  </div>
+ </div>
+ <div class="slide-footer"><span>资料 A1：示范排课模型。可在下一页调整会员人数，本页需求与使用率同步变化</span><span class="page">07 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-08" data-title="月卡经营测算" aria-label="第8页 月卡经营测算">
+ <div class="slide-top"><span class="section-id"><b>07</b> 经营测算</span><span class="assumption">独立情景测算，非真实利润</span></div>
+ <h2>既定排课计划下，约95位月卡会员覆盖已计成本</h2>
+ <p class="intro">只测算699元、8次团课月卡，假设当月购买并完成全部课程。体验课、季度包与私教另算。</p>
+ <div class="content finance-layout">
+  <div class="finance-main">
+   <div class="balance-label">月度收入减已计成本后的余额</div>
+   <div class="big-balance number" id="balanceValue" aria-live="polite">¥17,800</div>
+   <p class="result-footnote">未扣税费、折旧、退款及前期投入回收。<br>固定排课计划和成本保持不变，尚需核查高峰容量。</p>
+   <div class="finance-sub"><div><div class="label">月卡履约收入</div><div class="number" id="revenueValue">¥83,880</div></div><div><div class="label">已计月度成本</div><div class="number">¥66,080</div></div></div>
+   <div class="range-head"><label for="membersInput">月卡会员人数</label><output id="membersOutput" for="membersInput">120人</output></div>
+   <input id="membersInput" type="range" min="70" max="150" step="1" value="120" aria-label="调整示范月卡会员人数">
+   <div class="range-ticks"><span>70人</span><span>拖动查看变化</span><span>150人</span></div>
+  </div>
+  <div>
+   <table class="finance-costs"><tbody>
+    <tr><td>房租及物业</td><td>¥18,000</td></tr>
+    <tr><td>前台与店长薪酬，含社保</td><td>¥12,000</td></tr>
+    <tr><td>教练课酬：156节 × 180元</td><td>¥28,080</td></tr>
+    <tr><td>营销费用</td><td>¥6,000</td></tr>
+    <tr><td>水电、清洁与耗材</td><td>¥2,000</td></tr>
+    <tr class="total"><td>合计</td><td>¥66,080</td></tr>
+   </tbody></table>
+   <p class="break-even">66,080 ÷ 699，向上取整<br>至少 <b>95</b> 位同类月卡会员</p>
+   <p class="small muted" style="margin-top:13px">既定开班计划下，课酬按开班数支付。新增班次或老师时，重新测算成本。</p>
+  </div>
+ </div>
+ <div class="slide-footer"><span>资料 A1：全部金额均为前文示范参数。满额预收款与实际履约收入分开记录</span><span class="page">08 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-09" data-title="流失判断与证据" aria-label="第9页 流失判断与证据">
+ <div class="slide-top"><span class="section-id"><b>08</b> 流失判断</span><span class="assumption">模拟案例，非真实客户证据</span></div>
+ <h2>时间不匹配，可能让满意的体验客户流失</h2>
+ <p class="intro">判断仅适用于下述模拟客户A。体验满意与未办卡同时发生，需要进一步解释其中原因。</p>
+ <div class="content two-col wide-left">
+  <div>
+   <div class="case-tag">E1—E4为构造的教学案例记录</div>
+   <ol class="evidence-list">
+    <li><span class="evidence-id">E1</span><div><p>“老师讲得清楚，我能跟上。”</p><small>模拟体验反馈：本次教学评价为正面</small></div></li>
+    <li><span class="evidence-id">E2</span><div><p>“工作日只有19:30以后能来。”</p><small>模拟咨询记录：可来时间有明确限制</small></div></li>
+    <li><span class="evidence-id">E3</span><div><p>适合新手的工作日课程均在18:30开始。</p><small>模拟课表：未覆盖该客户可来时段</small></div></li>
+    <li><span class="evidence-id">E4</span><div><p>客户了解课表后，没有购买月卡。</p><small>模拟成交记录：出现未转正结果</small></div></li>
+   </ol>
+  </div>
+  <div class="case-right">
+   <div class="time-compare">
+    <div class="time-block"><div class="label">课程开始</div><div class="number">18:30</div></div>
+    <div class="time-block"><div class="label">客户最早可来</div><div class="number">19:30</div></div>
+    <div class="time-gap"><strong>60</strong><span>分钟时间错位</span></div>
+   </div>
+   <p class="case-judgment">E2与E3支持“排课时间不匹配”这一解释，E4与该解释一致。</p>
+   <p class="case-limit">尚不能确认唯一原因，也不能排除预算、通勤或其他顾虑。模拟记录不能用来证明真实门店的流失原因。</p>
+  </div>
+ </div>
+ <div class="slide-footer"><span>资料 A2：前文明确标注的模拟客户A及模拟课表。判断为解释假设，非因果结论</span><span class="page">09 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-10" data-title="验证时间匹配假设" aria-label="第10页 验证时间匹配假设">
+ <div class="slide-top"><span class="section-id"><b>09</b> 验证办法</span><span class="assumption">拟议测试，尚未执行</span></div>
+ <h2>新增适配时段，观察预约和正价购买是否改善</h2>
+ <p class="intro">先核实相似需求，再小范围试排19:30后的入门课程。价格、教师和课程等级尽量保持一致。</p>
+ <div class="content">
+  <div class="experiment-stages">
+   <div class="plain-col"><div class="number">01</div><h3>核实需求</h3><p>回访明确表示时间不合适的体验客，记录可来时间和未购买原因。核对是否存在其他可约课程。</p></div>
+   <div class="plain-col"><div class="number">02</div><h3>试排4周</h3><p>每周试开2节较晚入门课。区分新需求、从旧时段转来的预约和临时取消，记录额外课酬。</p></div>
+   <div class="plain-col"><div class="number">03</div><h3>完成观察窗口</h3><p>追踪预约、实际到课与首次正价购买。最后一位体验客满30日后，再汇总30日转正结果。</p></div>
+  </div>
+  <div class="decision-rules">
+   <div><strong>什么结果更支持假设</strong><p>目标人群确有新增到课和付费，且预约改善并非仅由老客换时段造成。结合新增履约贡献、额外课酬和老客预约情况决定是否保留。</p></div>
+   <div><strong>什么结果需要改变解释</strong><p>有时段仍不预约，或到课后仍不购买，则继续核查预算、教学体验和需求强度。同步考虑季节、渠道与样本差异。</p></div>
+  </div>
+  <div class="bottom-note">示范增量课酬：2节 / 周 × 4周 × 180元 = 1,440元。其他增量成本另计，新增收款不能直接等同增量利润。</div>
+ </div>
+ <div class="slide-footer"><span>资料 A3：拟议实验。没有实际执行数据，未设定或声称行业标准转化率</span><span class="page">10 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-11" data-title="前30天经营行动" aria-label="第11页 前30天经营行动">
+ <div class="slide-top"><span class="section-id"><b>10</b> 行动安排</span><span class="assumption">三项优先动作</span></div>
+ <h2>前30天先补记录，再改善体验与时段匹配</h2>
+ <p class="intro">优先完成能解释成交与流失的工作，预算与排课调整由实际经营者决定。</p>
+ <div class="content">
+  <div class="action-row"><div class="week">第1周</div><div><h3>建立同批客户记录</h3><span class="owner">店主 / 前台</span></div><p>记录来源、可来时段、体验购买、到课、正价购买和未成交原话。核对价格、课表与成本。</p><p class="muted">产出：客户链路台账<br>检查：来源与窗口可追踪</p></div>
+  <div class="action-row"><div class="week">第2周</div><div><h3>对齐宣传与实际交付</h3><span class="owner">运营 / 教练</span></div><p>明确价格、班额与课表，优化新手说明和课后反馈。用现有渠道追踪首次付费。</p><p class="muted">观察：核销与体验反馈<br>调整：承诺与交付有落差</p></div>
+  <div class="action-row"><div class="week">第3—4周启动</div><div><h3>验证晚间课程需求</h3><span class="owner">店主 / 教练</span></div><p>按上一页方案试排4周，检查新增需求、额外成本与热门时段挤占，完成后续30日跟踪。</p><p class="muted">保留：新增贡献可覆盖投入<br>调整：无新增需求或挤占严重</p></div>
+  <p class="action-note">第30天可以复盘过程指标。晚启动客户尚未满观察窗口时，继续跟踪，不提前汇报完整转正或续费结果。</p>
+ </div>
+ <div class="slide-footer"><span>资料 A3：拟议行动计划。执行角色和周期可按实际门店调整</span><span class="page">11 / 12</span></div>
+</section>
+
+<section class="slide" id="slide-12" data-title="证据范围与正式分析材料" aria-label="第12页 证据范围与正式分析材料">
+ <div class="slide-top"><span class="section-id"><b>11</b> 证据与材料</span><span class="assumption">正式判断须由门店材料支持</span></div>
+ <h2>产品、客群与排课，需要由真实到课记录连接</h2>
+ <p class="intro">本报告已形成可检验的经营解释。真实门店是否存在同样问题，需要以下材料核实。</p>
+ <div class="content close-main">
+  <div>
+   <p class="close-quote">附近有需求的人，<br>要有<span>适合购买</span>的产品，<br>也有<span>能够到课</span>的时段。</p>
+   <div class="source-list">
+    <p>A1：前文瑜伽馆示范经营模型，包含产品、价格、排课与成本假设。</p>
+    <p>A2：模拟客户A、模拟反馈与课表，仅演示判断方法。A3：拟议测试与行动计划。</p>
+    <p>P1：<a href="https://www.meituan.com/news/NN260121213001639?source=relativeNews" target="_blank" rel="noopener noreferrer">美团《2025年生活服务消费9大趋势洞察》</a>，2026年1月21日发布。公开背景不代表瑜伽门店实绩。</p>
+   </div>
+  </div>
+  <ol class="material-list">
+   <li><span class="index">01</span><div><b>产品、课表与预约记录</b><p>近1—3个完整月，区分课程、老师、时段、班额与预约失败，核实适配与高峰容量。</p></div></li>
+   <li><span class="index">02</span><div><b>成交、到课与到期续费</b><p>同一批客户从首次接触到购买、履约、退款与再次购买，保留观察窗口和数据来源。</p></div></li>
+   <li><span class="index">03</span><div><b>成本、渠道费用与客户原话</b><p>核对收款、履约收入、固定和增量成本，补充脱敏咨询、评价与回访，检验流失解释。</p></div></li>
+  </ol>
+ </div>
+ <div class="slide-footer"><span>所有经营数值、客群设定与客户案例均为示范。公开背景来源单独标注</span><span class="page">12 / 12</span></div>
+</section>
+
+</div>
+</main>
+<footer class="bottom-bar">
+ <div class="counter"><strong id="currentPage">01</strong> / <span id="totalPages">12</span></div>
+ <span class="page-title" id="pageTitle">社区瑜伽馆商业分析</span>
+ <div class="progress-track" role="progressbar" aria-label="报告阅读进度" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1" id="deckProgress"><div class="progress-fill" id="progressFill"></div></div>
+ <span class="key-help">滚轮向下阅读　O 目录　F 全屏</span>
+ <nav class="pager" aria-label="报告章节跳转"><button type="button" id="prevBtn" disabled>上一节</button><button type="button" id="nextBtn">下一节</button></nav>
+</footer>
+<div class="sr-only" id="slideAnnouncement" aria-live="polite"></div>
+<dialog id="overviewDialog" aria-labelledby="overviewHeading">
+ <div class="dialog-head"><h2 id="overviewHeading">报告目录</h2><button type="button" id="closeOverview">关闭</button></div>
+ <div class="toc-grid" id="tocGrid"></div>
+</dialog>
+<noscript><style>.toolbar,.bottom-bar{display:none}</style></noscript>
+<script>
+(() => {
+ 'use strict';
+ const slides = [...document.querySelectorAll('.slide')];
+ const deck = document.getElementById('deck');
+ const prev = document.getElementById('prevBtn');
+ const next = document.getElementById('nextBtn');
+ const dialog = document.getElementById('overviewDialog');
+ const overviewButton = document.getElementById('overviewBtn');
+ const currency = new Intl.NumberFormat('zh-CN', {maximumFractionDigits:0});
+ let current = 0;
+ function resizeDeck() {
+  if (window.matchMedia('(max-width:760px)').matches) {
+   deck.style.setProperty('--read-scale', '1');
+   return;
+  }
+  const scale = Math.min(1, (document.documentElement.clientWidth - 48) / 1280);
+  deck.style.setProperty('--read-scale', Math.max(0.1, scale));
+ }
+ function setCurrentSection(index, updateHash = true, announce = false) {
+  current = Math.min(slides.length - 1, Math.max(0, index));
+  const number = String(current + 1).padStart(2, '0');
+  document.getElementById('currentPage').textContent = number;
+  document.getElementById('pageTitle').textContent = slides[current].dataset.title;
+  document.getElementById('progressFill').style.width = `${(current + 1) / slides.length * 100}%`;
+  document.getElementById('deckProgress').setAttribute('aria-valuenow', current + 1);
+  prev.disabled = current === 0;
+  next.disabled = current === slides.length - 1;
+  if (announce) document.getElementById('slideAnnouncement').textContent = `第${current + 1}节，共${slides.length}节，${slides[current].dataset.title}`;
+  document.querySelectorAll('.toc-item').forEach((button, i) => button.setAttribute('aria-current', String(i === current)));
+  if (updateHash) history.replaceState(null, '', `#slide-${number}`);
+ }
+ function showSlide(index, updateHash = true, smooth = true) {
+  setCurrentSection(index, updateHash, true);
+  const headerHeight = document.querySelector('.topbar').getBoundingClientRect().height;
+  const top = slides[current].getBoundingClientRect().top + window.scrollY - headerHeight - 18;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  window.scrollTo({top:Math.max(0,top),behavior:smooth && !reducedMotion ? 'smooth' : 'instant'});
+ }
+ let scrollPending = false;
+ function updateReadingPosition() {
+  scrollPending = false;
+  const anchor = document.querySelector('.topbar').getBoundingClientRect().bottom + Math.min(170,window.innerHeight * .2);
+  let active = 0;
+  slides.forEach((slide,index) => { if (slide.getBoundingClientRect().top <= anchor) active = index; });
+  if (active !== current) setCurrentSection(active);
+ }
+ function slideFromHash() {
+  const match = location.hash.match(/^#slide-(\d{1,2})$/);
+  return match ? Number(match[1]) - 1 : 0;
+ }
+ slides.forEach((slide, index) => {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'toc-item';
+  const number = document.createElement('span');
+  number.textContent = String(index + 1).padStart(2, '0');
+  const title = document.createElement('strong');
+  title.textContent = slide.dataset.title;
+  button.append(number, title);
+  button.addEventListener('click', () => { showSlide(index); dialog.close(); });
+  document.getElementById('tocGrid').append(button);
+ });
+ function openOverview() { if (!dialog.open) dialog.showModal(); }
+ async function toggleFullscreen() {
+  try {
+   if (document.fullscreenElement) await document.exitFullscreen();
+   else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+   else document.getElementById('slideAnnouncement').textContent = '当前浏览器暂不支持全屏，请使用浏览器的全屏菜单。';
+  } catch (_) {
+   document.getElementById('slideAnnouncement').textContent = '全屏未开启，可继续向下滚动和使用目录。';
+  }
+ }
+ prev.addEventListener('click', () => showSlide(current - 1));
+ next.addEventListener('click', () => showSlide(current + 1));
+ overviewButton.addEventListener('click', openOverview);
+ document.getElementById('closeOverview').addEventListener('click', () => dialog.close());
+ dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
+ dialog.addEventListener('close', () => overviewButton.focus({preventScroll:true}));
+ document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+ document.getElementById('printBtn').addEventListener('click', () => window.print());
+ document.addEventListener('fullscreenchange', () => { document.getElementById('fullscreenBtn').textContent = document.fullscreenElement ? '退出全屏' : '全屏阅读'; resizeDeck(); });
+ document.addEventListener('keydown', event => {
+  if (dialog.open || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.target.closest('input,textarea,select,[contenteditable=true]')) return;
+  if (event.key.toLowerCase() === 'o') { event.preventDefault(); openOverview(); }
+  else if (event.key.toLowerCase() === 'f') { event.preventDefault(); toggleFullscreen(); }
+ });
+ function updateModel() {
+  const members = Number(document.getElementById('membersInput').value);
+  const revenue = members * 699;
+  const balance = revenue - 66080;
+  const demand = members * 8;
+  const usage = demand / 1560 * 100;
+  document.getElementById('membersOutput').textContent = `${members}人`;
+  document.getElementById('balanceValue').textContent = `${balance < 0 ? '−' : ''}¥${currency.format(Math.abs(balance))}`;
+  document.getElementById('balanceValue').style.color = balance < 0 ? 'var(--wine)' : 'var(--ink)';
+  document.getElementById('revenueValue').textContent = `¥${currency.format(revenue)}`;
+  const demandNode = document.getElementById('capacityDemand');
+  demandNode.replaceChildren(document.createTextNode(currency.format(demand)));
+  const unit = document.createElement('span'); unit.className = 'unit'; unit.textContent = '人次'; demandNode.append(unit);
+  document.getElementById('capacityMemberCount').textContent = String(members);
+  document.getElementById('capacityPercent').textContent = `${usage.toFixed(1)}%`;
+  document.getElementById('capacityFill').style.width = `${usage}%`;
+  document.getElementById('capacityMeter').setAttribute('aria-valuenow', usage.toFixed(1));
+ }
+ document.getElementById('membersInput').addEventListener('input', updateModel);
+ window.addEventListener('resize', resizeDeck);
+ window.addEventListener('scroll', () => {
+  if (!scrollPending) { scrollPending = true; requestAnimationFrame(updateReadingPosition); }
+ }, {passive:true});
+ window.addEventListener('hashchange', () => showSlide(slideFromHash(), false));
+ document.getElementById('totalPages').textContent = String(slides.length);
+ document.getElementById('deckProgress').setAttribute('aria-valuemax', String(slides.length));
+ slides.forEach(slide => { slide.hidden = false; });
+ updateModel();
+ resizeDeck();
+ setCurrentSection(slideFromHash(), false);
+ requestAnimationFrame(() => showSlide(slideFromHash(), false, false));
+ if ('ResizeObserver' in window) new ResizeObserver(resizeDeck).observe(document.documentElement);
+})();
+</script>
+</body>
+</html>
